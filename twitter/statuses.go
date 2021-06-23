@@ -313,7 +313,7 @@ func (s *StatusService) OEmbed(params *StatusOEmbedParams) (*OEmbedTweet, *http.
 
 // StatusRetweeterParams are the parameters for StatusService.Retweeters.
 type StatusRetweeterParams struct {
-	ID           int64  `url:"id,omitempty"`
+	ID           string `url:"id,omitempty"`
 	Cursor       int64  `url:"cursor,omitempty"`
 	Count        int    `url:"count,omitempty"`
 	StringifyIDs string `url:"stringify_ids,omitempty"`
@@ -333,6 +333,6 @@ type Retweeter struct {
 func (s *StatusService) Retweeters(params *StatusRetweeterParams) (*Retweeter, *http.Response, error) {
 	retweeters := new(Retweeter)
 	apiError := new(APIError)
-	resp, err := s.sling.Get("retweeter/ids.json").QueryStruct(params).Receive(retweeters, apiError)
+	resp, err := s.sling.Get("retweeters/ids.json").QueryStruct(params).Receive(retweeters, apiError)
 	return retweeters, resp, relevantError(err, *apiError)
 }
